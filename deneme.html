@@ -1,0 +1,23 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Document</title>
+  </head>
+  <body>
+
+    <h1 id="myTitle">myTitle</h1>
+
+    <button id="myBtn" onclick="">İsmi Değiştir</button>
+
+    <script>
+      const myBtn = document.getElementById('myBtn');
+      const myTitle = document.getElementById('myTitle');
+
+      myBtn.addEventListener('click', function () {
+        myTitle.innerText = 'Emin Başbayan';
+      });
+    </script>
+  </body>
+</html>
