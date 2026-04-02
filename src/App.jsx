@@ -6,6 +6,10 @@ function App() {
     <Fragment>
       <h1>App Component</h1>
       <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
+      <ProductCard />
     </Fragment>
   );
 }
