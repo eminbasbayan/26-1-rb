@@ -13,11 +13,12 @@ function Products() {
       <h2>Products Component</h2>
 
       <div className="products-wrapper">
-        <ProductCard fullName="Emin Başbayan" />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
-        <ProductCard />
+        <ProductCard myImage={image} title={title} price={price} />
+        <ProductCard myImage={image} title={"Küçük Su"} price={10} />
+        <ProductCard myImage={image} title={title} price={price} />
+        <ProductCard myImage={image} title={title} price={price} />
+        <ProductCard myImage={image} title={title} price={price} />
+       
       </div>
     </div>
   );
