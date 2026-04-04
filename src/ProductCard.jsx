@@ -13,7 +13,7 @@ function ProductCard() {
       <img className="product-image" src={image} alt="Image" />
       <div className="product-info">
         <strong className="product-title">{title}</strong>
-        <span class="product-price">{toplam}₺</span>
+        <span className="product-price">{toplam}₺</span>
       </div>
     </div>
   );

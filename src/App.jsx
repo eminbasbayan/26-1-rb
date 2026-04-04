@@ -1,15 +1,13 @@
 import { Fragment } from 'react';
 import ProductCard from './ProductCard';
+import Products from './Products';
 
 function App() {
   return (
     <Fragment>
       <h1>App Component</h1>
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
-      <ProductCard />
+      <Products />
+   
     </Fragment>
   );
 }
