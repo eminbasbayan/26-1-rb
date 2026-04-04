@@ -1,20 +1,21 @@
 import './ProductCard.css';
 
-function ProductCard() {
-  const image =
-    'https://karatayberraksu.com.tr/wp-content/uploads/2019/03/5lt-buyuk.png';
-  const title = 'Büyük Su';
-  const price = 20000;
+// component'in ilk parametresi sana bir obje {} verir. sen bunu 
+// istediğin isimle adlandırabilirsin 
+function ProductCard(props) {
 
-  const toplam = price + 1000;
+    console.log(props);
+    
+
 
   return (
     <div className="product-card">
-      <img className="product-image" src={image} alt="Image" />
+      <span>{props.fullName}</span>
+     {/*  <img className="product-image" src={image} alt="Image" />
       <div className="product-info">
         <strong className="product-title">{title}</strong>
-        <span className="product-price">{toplam}₺</span>
-      </div>
+        <span className="product-price">{price}₺</span>
+      </div> */}
     </div>
   );
 }
