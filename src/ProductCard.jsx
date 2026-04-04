@@ -4,7 +4,6 @@ import './ProductCard.css';
 // istediğin isimle adlandırabilirsin
 function ProductCard(props) {
   const { myImage, title, price, desc } = props;
-  console.log(props);
 
   return (
     <div className="product-card">
