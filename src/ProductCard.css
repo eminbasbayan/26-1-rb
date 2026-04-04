@@ -11,3 +11,7 @@
     flex-direction: column;
     padding: 10px;
 }
+
+.product-info .product-description{
+    margin: 0;
+}
