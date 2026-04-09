@@ -3,59 +3,53 @@ import Button from '../UI/Button';
 import './AddProductForm.css';
 
 function AddProductForm() {
-  const [title, setTitle] = useState('');
-  const [image, setImage] = useState('');
-  const [price, setPrice] = useState('');
-  const [description, setDescription] = useState('');
+  const [product, setProduct] = useState({
+    title: '',
+    image: '',
+    price: '',
+    description: '',
+  });
 
-  function handleTitleChange(event) {
-    setTitle(event.target.value);
-  }
-
-  function handleImageChange(event) {
-    setImage(event.target.value);
-  }
-
-  function handlePriceChange(event) {
-    setPrice(event.target.value);
-  }
-
-  function handleDescriptionChange(event) {
-    setDescription(event.target.value);
+  function handleChange({ target: { name, value } }) {
+    setProduct({ ...product, [name]: value });
   }
 
   return (
     <form className="add-product-form">
       <label>
-        Title: {title}
+        Title: {product.title}
         <input
           type="text"
           placeholder="Bir ürün ismi giriniz!"
-          onChange={handleTitleChange}
+          name="title"
+          onChange={handleChange}
         />
       </label>
       <label>
-        Image URL: {image}
+        Image URL: {product.image}
         <input
           type="text"
           placeholder="Bir ürün görseli giriniz!"
-          onChange={handleImageChange}
+          name="image"
+          onChange={handleChange}
         />
       </label>
       <label>
-        Price: {price}
+        Price: {product.price}
         <input
           type="number"
           placeholder="Bir ürün fiyatı giriniz!"
-          onChange={handlePriceChange}
+          name="price"
+          onChange={handleChange}
         />
       </label>
       <label>
-        Description: {description}
+        Description: {product.description}
         <input
           type="text"
           placeholder="Bir ürün açıklaması giriniz!"
-          onChange={handleDescriptionChange}
+          name="description"
+          onChange={handleChange}
         />
       </label>
 
