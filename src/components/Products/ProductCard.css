@@ -1,17 +1,28 @@
-.product-card{
-   border: 1px solid #ccc;
+.product-card {
+  border: 1px solid #ccc;
 }
 
-.product-card img{
-    width: 100%;
+.product-card img {
+  width: 100%;
 }
 
-.product-info{
-    display: flex;
-    flex-direction: column;
-    padding: 10px;
+.product-info {
+  display: flex;
+  flex-direction: column;
+  padding: 10px;
 }
 
-.product-info .product-description{
-    margin: 0;
+.product-info .product-title {
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 1;
+  -webkit-box-orient: vertical;
+}
+
+.product-info .product-description {
+  margin: 0;
+  overflow: hidden;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
 }

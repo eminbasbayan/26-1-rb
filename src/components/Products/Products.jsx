@@ -3,7 +3,7 @@ import productsData from '../../productsData.js';
 import './Products.css';
 
 // Ürünlerle ilgili ana parent component
-function Products() {
+function Products({productTitle, setProductTitle}) {
 
   return (
     <div className="products">
@@ -18,6 +18,7 @@ function Products() {
               title={product.title}
               price={product.price}
               desc={product.description}
+              productTitle={productTitle}
             />
           );
         })}
