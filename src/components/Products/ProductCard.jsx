@@ -4,7 +4,8 @@ import './ProductCard.css';
 // component'in ilk parametresi sana bir obje {} verir. sen bunu
 // istediğin isimle adlandırabilirsin
 function ProductCard(props) {
-  const { myImage, title, price, desc, productTitle } = props;
+  const { myImage, title, price, desc } = props;
+  const [productTitle, setProductTitle] = useState('Title');
 
   return (
     <div className="product-card">
@@ -13,6 +14,7 @@ function ProductCard(props) {
         <strong className="product-title">{productTitle}</strong>
         <span className="product-price">{price}₺</span>
         <p className="product-description">{desc}</p>
+        <button onClick={() => setProductTitle(title)}>Title Değiştir</button>
       </div>
     </div>
   );
