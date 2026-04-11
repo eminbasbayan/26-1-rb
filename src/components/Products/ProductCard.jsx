@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './ProductCard.css';
 
 // component'in ilk parametresi sana bir obje {} verir. sen bunu
