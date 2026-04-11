@@ -32,26 +32,21 @@ function AddProductForm({ addNewProduct }) {
       alert('Inputlar Boş Geçilemez!');
       return;
     }
-
-    /*   if (
-      product.title.trim() === '' ||
-      product.image.trim() === '' ||
-      product.description.trim() === '' ||
-      product.price.trim() === '' ||
-      product.category.trim() === ''
-    ) {
-      alert('Inputlar Boş Geçilemez!');
-      return;
-    } */
-
     const newProduct = { ...product, id: Math.random() };
     addNewProduct(newProduct);
+    setProduct({
+    title: '',
+    image: '',
+    price: '',
+    description: '',
+    category: '',
+  })
   }
 
   return (
     <form className="add-product-form" onSubmit={handleSubmit}>
       {productInputs.map((input) => (
-        <ProductInput key={input.name} {...input} handleChange={handleChange} />
+        <ProductInput key={input.name} {...input} handleChange={handleChange} value={product[input.name]} />
       ))}
 
       <Button variant="primary">Ürünü Ekle</Button>

@@ -9,7 +9,7 @@ function Products() {
   const [products, setProducts] = useState(productsData);
 
   function addNewProduct(newProduct) {
-    setProducts([...products, newProduct]);
+    setProducts([newProduct, ...products]);
   }
 
   return (
