@@ -10,9 +10,8 @@ function AddProductForm({ addNewProduct }) {
     image: '',
     price: '',
     description: '',
+    category: '',
   });
-
-  console.log(product);
 
   function handleChange({ target: { name, value } }) {
     setProduct({ ...product, [name]: value });
@@ -20,6 +19,31 @@ function AddProductForm({ addNewProduct }) {
 
   function handleSubmit(event) {
     event.preventDefault();
+
+    console.log(Object.keys(product));
+    console.log(Object.values(product));
+    console.log(Object.entries(product));
+
+    const isFormValid = Object.values(product).every(
+      (value) => value.trim() !== '',
+    );
+
+    if (!isFormValid) {
+      alert('Inputlar Boş Geçilemez!');
+      return;
+    }
+
+    /*   if (
+      product.title.trim() === '' ||
+      product.image.trim() === '' ||
+      product.description.trim() === '' ||
+      product.price.trim() === '' ||
+      product.category.trim() === ''
+    ) {
+      alert('Inputlar Boş Geçilemez!');
+      return;
+    } */
+
     const newProduct = { ...product, id: Math.random() };
     addNewProduct(newProduct);
   }
@@ -27,14 +51,7 @@ function AddProductForm({ addNewProduct }) {
   return (
     <form className="add-product-form" onSubmit={handleSubmit}>
       {productInputs.map((input) => (
-        <ProductInput
-          key={input.name}
-          label={input.label}
-          type={input.type}
-          placeholder={input.placeholder}
-          name={input.name}
-          handleChange={handleChange}
-        />
+        <ProductInput key={input.name} {...input} handleChange={handleChange} />
       ))}
 
       <Button variant="primary">Ürünü Ekle</Button>
