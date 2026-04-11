@@ -14,8 +14,14 @@ function AddProductForm() {
     setProduct({ ...product, [name]: value });
   }
 
+  function handleSubmit(event) {
+    event.preventDefault();
+
+    console.log('Yeni ürün bilgileri:', product);
+  }
+
   return (
-    <form className="add-product-form">
+    <form className="add-product-form" onSubmit={handleSubmit}>
       <label>
         Title: {product.title}
         <input
