@@ -1,4 +1,5 @@
 import { CircleX } from 'lucide-react';
+import { createPortal } from 'react-dom';
 import './Modal.css';
 
 const Modal = ({
@@ -6,7 +7,7 @@ const Modal = ({
   description = '...',
   onCloseModal,
 }) => {
-  return (
+  return createPortal(
     <div className="modal fade">
       <div className="modal-dialog">
         <div className="modal-content">
@@ -31,7 +32,8 @@ const Modal = ({
           </div>
         </div>
       </div>
-    </div>
+    </div>,
+    document.getElementById('portal'),
   );
 };
 
