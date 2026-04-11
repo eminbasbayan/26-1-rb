@@ -1,9 +1,10 @@
+import Button from '../UI/Button';
 import './ProductCard.css';
 
 // component'in ilk parametresi sana bir obje {} verir. sen bunu
 // istediğin isimle adlandırabilirsin
 function ProductCard(props) {
-  const { title, price, desc } = props;
+  const { id: productId, title, price, desc, deleteProduct } = props;
 
   return (
     <div className="product-card">
@@ -12,7 +13,13 @@ function ProductCard(props) {
         <strong className="product-title">{title}</strong>
         <span className="product-price">{price}₺</span>
         <p className="product-description">{desc}</p>
-        <button onClick={() => {}}>Sepete Ekle</button>
+        <Button
+          variant="danger"
+          size="sm"
+          onClick={() => deleteProduct(productId)}
+        >
+          Ürünü Sil
+        </Button>
       </div>
     </div>
   );
