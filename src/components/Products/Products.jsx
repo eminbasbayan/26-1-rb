@@ -1,13 +1,12 @@
-import { useState } from 'react';
+import { useEffect, useState } from 'react';
 import AddProductForm from './AddProductForm.jsx';
 import ProductCard from './ProductCard.jsx';
 import Modal from '../UI/Modal.jsx';
-import productsData from "../../data/productsData.js"
 import './Products.css';
 
 // Ürünlerle ilgili ana parent component
 function Products() {
-  const [products, setProducts] = useState(productsData);
+  const [products, setProducts] = useState([]);
   const [isShowModal, setIsShowModal] = useState(false);
 
   function addNewProduct(newProduct) {
@@ -21,6 +20,12 @@ function Products() {
 
     setProducts(filteredProducts);
   }
+
+  useEffect(() => {
+    fetch('https://fakestoreapi.com/products')
+      .then((res) => res.json())
+      .then((data) => setProducts(data));
+  }, []);
 
   return (
     <div className="products">
