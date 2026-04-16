@@ -1,3 +1,4 @@
+import { useEffect, useState } from 'react';
 import { CircleX } from 'lucide-react';
 import { createPortal } from 'react-dom';
 import './Modal.css';
@@ -7,12 +8,34 @@ const Modal = ({
   description = '...',
   onCloseModal,
 }) => {
+  const [count, setCount] = useState(0);
+
+  useEffect(() => {
+    console.log("Component DOM'a ilk yüklendiğinde çalışır!");
+
+    let i = 0;
+
+   const id = setInterval(() => {
+      i += 1;
+      setCount(i);
+      console.log(i);
+    }, 1000);
+
+    // clean-up function - component unmount
+    return () => {
+      console.log("Component DOM'dan kaldırıldığında çalışır!");
+      clearInterval(id)
+    };
+  }, []);
+
   return createPortal(
     <div className="modal fade">
       <div className="modal-dialog">
         <div className="modal-content">
           <div className="modal-header">
-            <h1 className="modal-title fs-5">{title}</h1>
+            <h1 className="modal-title fs-5">
+              {title} Counter: {count}
+            </h1>
             <button type="button" className="btn-close" onClick={onCloseModal}>
               <CircleX />
             </button>

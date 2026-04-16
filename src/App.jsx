@@ -6,8 +6,8 @@ function App() {
   return (
     <Fragment>
       <h1>App Component</h1>
-      <Counter />
-      {/*  <Products /> */}
+      {/* <Counter /> */}
+      <Products />
     </Fragment>
   );
 }
