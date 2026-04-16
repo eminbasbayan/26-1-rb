@@ -2,7 +2,7 @@ import { useState } from 'react';
 import AddProductForm from './AddProductForm.jsx';
 import ProductCard from './ProductCard.jsx';
 import Modal from '../UI/Modal.jsx';
-import productsData from '../../productsData.js';
+import productsData from "../../data/productsData.js"
 import './Products.css';
 
 // Ürünlerle ilgili ana parent component
