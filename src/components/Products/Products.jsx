@@ -8,6 +8,7 @@ import './Products.css';
 function Products() {
   const [products, setProducts] = useState([]);
   const [isShowModal, setIsShowModal] = useState(false);
+  const [isLoading, setIsLoading] = useState(true);
 
   function addNewProduct(newProduct) {
     setProducts([newProduct, ...products]);
@@ -24,7 +25,9 @@ function Products() {
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
       .then((res) => res.json())
-      .then((data) => setProducts(data));
+      .then((data) => setProducts(data))
+      .catch((err) => console.log(err))
+      .finally(() => setIsLoading(false));
   }, []);
 
   return (
@@ -35,6 +38,7 @@ function Products() {
         setIsShowModal={setIsShowModal}
       />
       <div className="products-wrapper">
+        {isLoading && <b>Ürünler Yükleniyor!</b>}
         {products.map((product) => {
           return (
             <ProductCard
