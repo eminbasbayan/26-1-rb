@@ -1,45 +1,33 @@
-import { useEffect, useState } from 'react';
+import { useEffect, useReducer } from 'react';
 import AddProductForm from './AddProductForm.jsx';
 import ProductCard from './ProductCard.jsx';
 import Modal from '../UI/Modal.jsx';
 import './Products.css';
+import { initialState, reducerFunction } from './productReducer.js';
 
-// Ürünlerle ilgili ana parent component
 function Products() {
-  const [products, setProducts] = useState([]);
-  const [isShowModal, setIsShowModal] = useState(false);
-  const [isLoading, setIsLoading] = useState(true);
-
-  function addNewProduct(newProduct) {
-    setProducts([newProduct, ...products]);
-  }
-
-  function deleteProduct(productId) {
-    const filteredProducts = products.filter(
-      (product) => product.id !== productId,
-    );
-
-    setProducts(filteredProducts);
-  }
+  const [state, dispatch] = useReducer(reducerFunction, initialState);
 
   useEffect(() => {
     fetch('https://fakestoreapi.com/products')
       .then((res) => res.json())
-      .then((data) => setProducts(data))
+      .then((data) => dispatch({ type: 'GET_PRODUCTS', products: data }))
       .catch((err) => console.log(err))
-      .finally(() => setIsLoading(false));
+      .finally(() => dispatch({ type: 'CLOSE_LOADING' }));
   }, []);
 
   return (
     <div className="products">
       <h2>Products Component</h2>
       <AddProductForm
-        addNewProduct={addNewProduct}
-        setIsShowModal={setIsShowModal}
+        addNewProduct={(newProduct) =>
+          dispatch({ type: 'ADD_NEW_PRODUCTS', newProduct })
+        }
+        setIsShowModal={() => dispatch({ type: 'OPEN_MODAL' })}
       />
       <div className="products-wrapper">
-        {isLoading && <b>Ürünler Yükleniyor!</b>}
-        {products.map((product) => {
+        {state.isLoading && <b>Ürünler Yükleniyor!</b>}
+        {state.products.map((product) => {
           return (
             <ProductCard
               key={product.id}
@@ -48,16 +36,18 @@ function Products() {
               price={product.price}
               desc={product.description}
               id={product.id}
-              deleteProduct={deleteProduct}
+              deleteProduct={(productId) =>
+                dispatch({ type: 'DELETE_PRODUCT', productId })
+              }
             />
           );
         })}
       </div>
-      {isShowModal && (
+      {state.isShowModal && (
         <Modal
           title="Form Hatası"
           description="Inputlar boş geçilemez!"
-          onCloseModal={() => setIsShowModal(false)}
+          onCloseModal={() => dispatch({ type: 'CLOSE_MODAL' })}
         />
       )}
     </div>

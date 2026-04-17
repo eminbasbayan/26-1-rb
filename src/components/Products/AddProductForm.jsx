@@ -25,7 +25,7 @@ function AddProductForm({ addNewProduct, setIsShowModal }) {
     );
 
     if (!isFormValid) {
-      setIsShowModal(true);
+      setIsShowModal();
       return;
     }
     const newProduct = { ...product, id: Math.random() };
