@@ -33,7 +33,6 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div className='p-4'>
-      <Header />
       <main className='main-content py-4'>
         <RouterProvider router={router} />
       </main>

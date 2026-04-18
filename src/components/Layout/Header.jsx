@@ -1,3 +1,5 @@
+import { Link } from "react-router";
+
 function Header() {
   const navClassName =
     "rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900";
@@ -5,8 +7,8 @@ function Header() {
   return (
     <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur-sm supports-backdrop-filter:bg-white/90">
       <div className="mx-auto flex h-14 max-w-7xl items-center justify-between gap-4 px-4 sm:h-16 sm:px-6">
-        <a
-          href="/"
+        <Link
+          to="/"
           className="flex shrink-0 items-center gap-2.5 text-slate-900 no-underline"
         >
           <span
@@ -18,33 +20,33 @@ function Header() {
           <span className="hidden text-base font-semibold tracking-tight sm:inline">
             Kurumsal Portal
           </span>
-        </a>
+        </Link>
 
         <nav
           className="flex flex-1 items-center justify-end gap-1 sm:justify-center sm:gap-2"
           aria-label="Ana menü"
         >
-          <a href="/" className={navClassName}>
+          <Link to="/" className={navClassName}>
             Ana Sayfa
-          </a>
-          <a href="/products" className={navClassName}>
+          </Link>
+          <Link to="/products" className={navClassName}>
             Ürünler
-          </a>
+          </Link>
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
-          <a
-            href="/login"
+          <Link
+            to="/login"
             className="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
           >
             Giriş
-          </a>
-          <a
-            href="/register"
+          </Link>
+          <Link
+            to="/register"
             className="rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
           >
             Kayıt ol
-          </a>
+          </Link>
         </div>
       </div>
     </header>

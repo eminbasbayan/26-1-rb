@@ -1,6 +1,7 @@
 import { useForm } from "react-hook-form";
 import { yupResolver } from "@hookform/resolvers/yup";
 import * as yup from "yup";
+import Header from "../components/Layout/Header";
 
 const schema = yup.object({
   fullName: yup.string().required("Ad soyad zorunludur."),
@@ -40,6 +41,7 @@ function RegisterPage() {
 
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col items-center justify-center px-4 py-10">
+      <Header />
       <div className="w-full max-w-md">
         <div className="rounded-2xl border border-slate-200 bg-white p-8 shadow-sm shadow-slate-200/60">
           <header className="mb-8">
