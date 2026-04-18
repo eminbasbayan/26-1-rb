@@ -18,7 +18,6 @@ function Products() {
 
   return (
     <div className="products">
-      <h2>Products Component</h2>
       <AddProductForm
         addNewProduct={(newProduct) =>
           dispatch({ type: 'ADD_NEW_PRODUCTS', newProduct })

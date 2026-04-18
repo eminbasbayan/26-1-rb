@@ -4,6 +4,7 @@ import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import ProductsPage from './pages/ProductsPage';
 import RegisterPage from './pages/RegisterPage';
+import Header from "./components/Layout/Header";
 
 const router = createBrowserRouter([
   {
@@ -27,7 +28,10 @@ const router = createBrowserRouter([
 function App() {
   return (
     <div className='p-4'>
-      <RouterProvider router={router} />
+      <Header />
+      <main className='main-content py-4'>
+        <RouterProvider router={router} />
+      </main>
     </div>
   );
 }
