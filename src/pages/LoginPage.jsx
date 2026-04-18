@@ -1,16 +1,20 @@
 import { useForm } from "react-hook-form";
+import { yupResolver } from '@hookform/resolvers/yup';
+import * as yup from "yup";
 
-const inputClassName =
-  'mt-1.5 w-full rounded-lg border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-900/10';
+const schema = yup.object({
+  email: yup.string().email("Geçerli bir e-posta adresi giriniz.").required("E-posta adresi zorunludur."),
+  password: yup.string().min(6, "Şifre en az 6 karakter olmalıdır.").max(12, "Şifre en fazla 12 karakter olmalıdır.").required("Şifre zorunludur.")
+})
+
 
 /**
  * Kurumsal giriş sayfası (yalnızca arayüz).
  */
 function LoginPage() {
-  const { register, handleSubmit, watch, formState: { errors } } = useForm()
-
-  console.log(errors);
-
+  const { register, handleSubmit, formState: { errors } } = useForm({
+    resolver: yupResolver(schema)
+  })
 
   function onSubmit(data) {
     console.log(data);
@@ -45,8 +49,9 @@ function LoginPage() {
                 autoComplete="email"
                 placeholder="ornek@sirket.com"
                 {...register('email', { required: true })}
-                className={inputClassName}
+                className={"mt-1.5 w-full rounded-lg border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-900/10"}
               />
+              {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
             </div>
 
             <div>
@@ -71,8 +76,9 @@ function LoginPage() {
                 autoComplete="current-password"
                 placeholder="••••••••"
                 {...register('password')}
-                className={inputClassName}
+                className={"mt-1.5 w-full rounded-lg border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-900/10"}
               />
+              {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
             </div>
 
             <button
