@@ -9,8 +9,8 @@ function App() {
     <div className='p-4'>
       <h1>App Component</h1>
       {/* <Counter /> */}
-     {/*  <LoginPage /> */}
-      <RegisterPage />
+      <LoginPage />
+      {/* <RegisterPage /> */}
      {/*  <Products /> */}
     </div>
   );

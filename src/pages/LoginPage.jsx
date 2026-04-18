@@ -1,3 +1,5 @@
+import { useForm } from "react-hook-form";
+
 const inputClassName =
   'mt-1.5 w-full rounded-lg border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-900/10';
 
@@ -5,6 +7,16 @@ const inputClassName =
  * Kurumsal giriş sayfası (yalnızca arayüz).
  */
 function LoginPage() {
+  const { register, handleSubmit, watch, formState: { errors } } = useForm()
+
+  console.log(errors);
+
+
+  function onSubmit(data) {
+    console.log(data);
+  }
+
+
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col items-center justify-center px-4 py-10">
       <div className="w-full max-w-md">
@@ -18,7 +30,7 @@ function LoginPage() {
             </p>
           </header>
 
-          <form className="space-y-5" method="post" action="#">
+          <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label
                 htmlFor="login-email"
@@ -32,6 +44,7 @@ function LoginPage() {
                 type="email"
                 autoComplete="email"
                 placeholder="ornek@sirket.com"
+                {...register('email', { required: true })}
                 className={inputClassName}
               />
             </div>
@@ -57,6 +70,7 @@ function LoginPage() {
                 type="password"
                 autoComplete="current-password"
                 placeholder="••••••••"
+                {...register('password')}
                 className={inputClassName}
               />
             </div>
