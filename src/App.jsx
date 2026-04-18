@@ -4,11 +4,11 @@ import Counter from './components/Counter';
 
 function App() {
   return (
-    <Fragment>
+    <div className='p-4'>
       <h1>App Component</h1>
       {/* <Counter /> */}
       <Products />
-    </Fragment>
+    </div>
   );
 }
 
