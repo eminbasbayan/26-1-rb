@@ -41,11 +41,9 @@ const router = createBrowserRouter([
 
 function App() {
   return (
-    <div className='p-4'>
-      <main className='main-content py-4'>
-        <RouterProvider router={router} />
-      </main>
-    </div>
+    <main className='main-content mx-auto max-w-7xl'>
+      <RouterProvider router={router} />
+    </main>
   );
 }
 
