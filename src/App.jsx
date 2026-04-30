@@ -6,6 +6,7 @@ import ProductsPage from './pages/ProductsPage';
 import RegisterPage from './pages/RegisterPage';
 import NotFoundPage from "./pages/NotFoundPage";
 import MainLayout from "./layouts/MainLayout";
+import CartPage from "./pages/CartPage";
 
 const router = createBrowserRouter([
   {
@@ -28,6 +29,10 @@ const router = createBrowserRouter([
       {
         path: "/register",
         element: <RegisterPage />
+      },
+      {
+        path: "/cart",
+        element: <CartPage />
       },
     ]
   }
