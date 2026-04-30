@@ -1,12 +1,13 @@
-import { useState } from "react";
 import { Link, NavLink } from "react-router";
+
+const navClassName =
+    "rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900";
 
 function Header({ cartItems }) {
     console.log(cartItems);
-    
 
-    const navClassName =
-        "rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900";
+
+
     /*  const cartItemCount = 2; */
 
     return (
@@ -31,10 +32,10 @@ function Header({ cartItems }) {
                     className="flex flex-1 items-center justify-end gap-1 sm:justify-center sm:gap-2"
                     aria-label="Ana menü"
                 >
-                    <NavLink to="/" className={({ isActive }) => isActive ? `${navClassName} text-fuchsia-700!` : navClassName} activeClassName="text-fuchsia-700!">
+                    <NavLink to="/" className={({ isActive }) => isActive ? `${navClassName} text-fuchsia-700!` : navClassName} >
                         Ana Sayfa
                     </NavLink>
-                    <NavLink to="/products" className={({ isActive }) => isActive ? `${navClassName} text-fuchsia-700!` : navClassName} activeClassName="text-fuchsia-700!">
+                    <NavLink to="/products" className={({ isActive }) => isActive ? `${navClassName} text-fuchsia-700!` : navClassName} >
                         Ürünler
                     </NavLink>
                 </nav>
