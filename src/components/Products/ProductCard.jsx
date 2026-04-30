@@ -1,6 +1,7 @@
 import { useContext } from 'react';
 import Button from '../UI/Button';
 import { CartContext } from '../../context/CartContext';
+import { toast } from 'react-toastify';
 import './ProductCard.css';
 
 // component'in ilk parametresi sana bir obje {} verir. sen bunu
@@ -8,6 +9,13 @@ import './ProductCard.css';
 function ProductCard(props) {
   const { id: productId, title, price, myImage, desc, deleteProduct } = props;
   const { setCartItems } = useContext(CartContext)
+
+  function addToCart() {
+    setCartItems((prevState) => [...prevState, { id: productId, title, price, myImage, desc }]);
+    toast.success("Ürün sepete eklendi", {
+      position: "top-center"
+    });
+  }
 
   return (
     <div className="product-card">
@@ -20,7 +28,7 @@ function ProductCard(props) {
           variant="primary"
           size="sm"
           addClass="product-btn"
-          onClick={() => setCartItems((prevState) => [...prevState, { id: productId, title, price, myImage, desc }])}
+          onClick={addToCart}
         >
           Sepete Ekle
         </Button>

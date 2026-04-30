@@ -40,6 +40,12 @@ function Header() {
                     <NavLink to="/products" className={({ isActive }) => isActive ? `${navClassName} text-fuchsia-700!` : navClassName} >
                         Ürünler
                     </NavLink>
+                    <NavLink to="/about" className={({ isActive }) => isActive ? `${navClassName} text-fuchsia-700!` : navClassName} >
+                        Hakkımızda
+                    </NavLink>
+                    <NavLink to="/contact" className={({ isActive }) => isActive ? `${navClassName} text-fuchsia-700!` : navClassName} >
+                        İletişim
+                    </NavLink>
                 </nav>
 
                 <div className="flex shrink-0 items-center gap-2">

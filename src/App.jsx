@@ -7,6 +7,10 @@ import RegisterPage from './pages/RegisterPage';
 import NotFoundPage from "./pages/NotFoundPage";
 import MainLayout from "./layouts/MainLayout";
 import CartPage from "./pages/CartPage";
+import AboutPage from "./pages/AboutPage";
+import ContactPage from "./pages/ContactPage";
+
+import { ToastContainer } from 'react-toastify';
 
 const router = createBrowserRouter([
   {
@@ -34,6 +38,14 @@ const router = createBrowserRouter([
         path: "/cart",
         element: <CartPage />
       },
+      {
+        path: "/about",
+        element: <AboutPage />
+      },
+      {
+        path: "/contact",
+        element: <ContactPage />
+      },
     ]
   }
 
@@ -43,6 +55,7 @@ function App() {
   return (
     <main className='main-content mx-auto max-w-7xl'>
       <RouterProvider router={router} />
+      <ToastContainer />
     </main>
   );
 }
