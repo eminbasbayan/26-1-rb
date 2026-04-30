@@ -4,7 +4,7 @@ import './ProductCard.css';
 // component'in ilk parametresi sana bir obje {} verir. sen bunu
 // istediğin isimle adlandırabilirsin
 function ProductCard(props) {
-  const { id: productId, title, price, myImage, desc, deleteProduct } = props;
+  const { id: productId, title, price, myImage, desc, deleteProduct, setCartItems } = props;
 
   return (
     <div className="product-card">
@@ -13,6 +13,14 @@ function ProductCard(props) {
         <strong className="product-title">{title}</strong>
         <span className="product-price">{price}₺</span>
         <p className="product-description">{desc}</p>
+        <Button
+          variant="primary"
+          size="sm"
+          addClass="product-btn"
+          onClick={() => setCartItems((prevState) => [...prevState, { id: productId, title, price, myImage, desc }])}
+        >
+          Sepete Ekle
+        </Button>
         <Button
           variant="danger"
           size="sm"

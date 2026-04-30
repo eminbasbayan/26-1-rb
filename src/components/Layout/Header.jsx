@@ -1,8 +1,13 @@
+import { useState } from "react";
 import { Link, NavLink } from "react-router";
 
-function Header() {
+function Header({ cartItems }) {
+    console.log(cartItems);
+    
+
     const navClassName =
         "rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900";
+    /*  const cartItemCount = 2; */
 
     return (
         <header className="sticky top-0 z-50 border-b border-slate-200 bg-white/95 shadow-sm backdrop-blur-sm supports-backdrop-filter:bg-white/90">
@@ -35,6 +40,15 @@ function Header() {
                 </nav>
 
                 <div className="flex shrink-0 items-center gap-2">
+                    <Link
+                        to="/cart"
+                        className="relative rounded-lg px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
+                    >
+                        Sepet
+                        <span className="absolute -right-1 -top-1 inline-flex h-5 min-w-5 items-center justify-center rounded-full bg-fuchsia-600 px-1 text-xs font-semibold leading-none text-white">
+                            {cartItems.length}
+                        </span>
+                    </Link>
                     <Link
                         to="/login"
                         className="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"

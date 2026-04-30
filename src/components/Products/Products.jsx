@@ -5,7 +5,7 @@ import Modal from '../UI/Modal.jsx';
 import './Products.css';
 import { initialState, reducerFunction } from './productReducer.js';
 
-function Products() {
+function Products({ setCartItems }) {
   const [state, dispatch] = useReducer(reducerFunction, initialState);
 
   useEffect(() => {
@@ -38,6 +38,7 @@ function Products() {
               deleteProduct={(productId) =>
                 dispatch({ type: 'DELETE_PRODUCT', productId })
               }
+             setCartItems={setCartItems}
             />
           );
         })}
