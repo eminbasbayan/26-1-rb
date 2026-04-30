@@ -1,10 +1,13 @@
+import { useContext } from 'react';
 import Button from '../UI/Button';
+import { CartContext } from '../../context/CartContext';
 import './ProductCard.css';
 
 // component'in ilk parametresi sana bir obje {} verir. sen bunu
 // istediğin isimle adlandırabilirsin
 function ProductCard(props) {
-  const { id: productId, title, price, myImage, desc, deleteProduct, setCartItems } = props;
+  const { id: productId, title, price, myImage, desc, deleteProduct } = props;
+  const { setCartItems } = useContext(CartContext)
 
   return (
     <div className="product-card">

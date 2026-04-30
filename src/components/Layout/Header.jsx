@@ -1,10 +1,12 @@
+import { useContext } from "react";
 import { Link, NavLink } from "react-router";
+import { CartContext } from "../../context/CartContext";
 
 const navClassName =
     "rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900";
 
-function Header({ cartItems }) {
-    console.log(cartItems);
+function Header() {
+    const { cartItems } = useContext(CartContext)
 
 
 
