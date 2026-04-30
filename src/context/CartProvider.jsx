@@ -1,10 +1,10 @@
 import { CartContext } from "./CartContext";
 
-const CartProvider = ({children})=> {
+const CartProvider = ({ children }) => {
     return (
-   <CartContext.Provider value={{
-    fullName: "Emin Başbayan"
-   }} >{children}</CartContext.Provider>
+        <CartContext.Provider value={{
+            fullName: "Emin Başbayan"
+        }} >{children}</CartContext.Provider>
     )
 }
 
