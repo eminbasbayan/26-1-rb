@@ -1,5 +1,6 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
+import ProductDetailSkeleton from '../components/ProductDetailSkeleton';
 
 const ProductDetailPage = () => {
   const [product, setProduct] = useState(null);
@@ -9,7 +10,11 @@ const ProductDetailPage = () => {
     async function fetchProductDetail() {
       fetch(`https://fakestoreapi.com/products/${params.urunId}`)
         .then((res) => res.json())
-        .then((data) => setProduct(data))
+        .then((data) => {
+          setTimeout(() => {
+            setProduct(data);
+          }, 3000);
+        })
         .catch((err) => console.log(err))
         .finally(() => console.log('İşlem Tamamlandı'));
     }
@@ -17,7 +22,7 @@ const ProductDetailPage = () => {
     fetchProductDetail();
   }, [params.urunId]);
 
-  if (!product) return '';
+  if (!product) return <ProductDetailSkeleton />;
 
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
