@@ -4,10 +4,10 @@ import { removeFromCart, resetCart } from '../redux/cartSlice';
 import Button from '../components/UI/Button';
 
 const CartPage = () => {
-  /*  const { deleteProduct } = useContext(CartContext); */
 
   const { cartItems } = useSelector((state) => state.cart);
   const dispatch = useDispatch();
+  console.log(cartItems);
 
   // Sepetteki ürünlerin toplam fiyatını güvenli şekilde hesaplar.
   const totalPrice = cartItems.reduce((accumulator, item) => {
@@ -60,7 +60,7 @@ const CartPage = () => {
                     </p>
                   </div>
                   <strong className="mt-3 text-lg text-fuchsia-700">
-                    {Number(item.price).toFixed(2)} TL
+                    {Number(item.price).toFixed(2)} TL x {item.quantity}
                   </strong>
                   <button
                     type="button"

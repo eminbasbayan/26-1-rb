@@ -8,7 +8,25 @@ const cartSlice = createSlice({
   },
   reducers: {
     addToCart: (state, { payload: productItem }) => {
-      state.cartItems = [productItem, ...state.cartItems];
+      const findCartItem = state.cartItems.find(
+        (cartItem) => cartItem.id === productItem.id,
+      );
+
+      if (findCartItem) {
+        state.cartItems = state.cartItems.map((cartItem) => {
+          if (cartItem.id === findCartItem.id) {
+            return {
+              ...cartItem,
+              quantity: cartItem.quantity + 1,
+            };
+          }
+
+          return cartItem;
+        });
+      } else {
+        state.cartItems = [{ ...productItem, quantity: 1 }, ...state.cartItems];
+      }
+
       toast.success('Ürün sepete eklendi', {
         position: 'top-center',
       });
