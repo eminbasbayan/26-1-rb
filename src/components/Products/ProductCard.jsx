@@ -1,27 +1,17 @@
-import { useContext } from 'react';
 import { useNavigate } from 'react-router';
-import { toast } from 'react-toastify';
 
 import Button from '../UI/Button';
 import { CartContext } from '../../context/CartContext';
 import './ProductCard.css';
+import { addToCart } from '../../redux/cartSlice';
+import { useDispatch } from 'react-redux';
 
 // component'in ilk parametresi sana bir obje {} verir. sen bunu
 // istediğin isimle adlandırabilirsin
 function ProductCard(props) {
   const { id: productId, title, price, myImage, desc, deleteProduct } = props;
-  const { setCartItems } = useContext(CartContext);
   const navigate = useNavigate();
-
-  function addToCart() {
-    setCartItems((prevState) => [
-      ...prevState,
-      { id: productId, title, price, myImage, desc },
-    ]);
-    toast.success('Ürün sepete eklendi', {
-      position: 'top-center',
-    });
-  }
+  const dispatch = useDispatch();
 
   return (
     <div className="product-card">
@@ -44,7 +34,9 @@ function ProductCard(props) {
           variant="primary"
           size="sm"
           addClass="product-btn"
-          onClick={addToCart}
+          onClick={() =>
+            dispatch(addToCart({ id: productId, title, price, myImage, desc }))
+          }
         >
           Sepete Ekle
         </Button>
