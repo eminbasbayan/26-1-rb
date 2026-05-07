@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import { ArrowRight, CheckCircle2, Package, ShieldCheck, ShoppingCart, Sparkles } from 'lucide-react';
+import Counter from '../components/Counter';
 
 const categoryLinks = [
   'Elektronik',
@@ -39,6 +40,7 @@ const HomePage = () => {
 
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+      <Counter />
       <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <span className="inline-flex w-fit items-center gap-2 rounded-full bg-fuchsia-100 px-3 py-1 text-xs font-semibold text-fuchsia-700">
