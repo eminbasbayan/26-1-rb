@@ -1,20 +1,21 @@
-import { createBrowserRouter } from "react-router";
-import { RouterProvider } from "react-router/dom";
+import { createBrowserRouter } from 'react-router';
+import { RouterProvider } from 'react-router/dom';
 import HomePage from './pages/HomePage';
 import LoginPage from './pages/LoginPage';
 import ProductsPage from './pages/ProductsPage';
 import RegisterPage from './pages/RegisterPage';
-import NotFoundPage from "./pages/NotFoundPage";
-import MainLayout from "./layouts/MainLayout";
-import CartPage from "./pages/CartPage";
-import AboutPage from "./pages/AboutPage";
-import ContactPage from "./pages/ContactPage";
+import NotFoundPage from './pages/NotFoundPage';
+import MainLayout from './layouts/MainLayout';
+import CartPage from './pages/CartPage';
+import AboutPage from './pages/AboutPage';
+import ContactPage from './pages/ContactPage';
 
 import { ToastContainer } from 'react-toastify';
-import ProductDetailPage from "./pages/ProductDetailPage";
-import AdminLayout from "./layouts/AdminLayout";
-import AdminDashboardPage from "./pages/admin/AdminDashboardPage";
-import AdminSectionPage from "./pages/admin/AdminSectionPage";
+import ProductDetailPage from './pages/ProductDetailPage';
+import AdminLayout from './layouts/AdminLayout';
+import AdminDashboardPage from './pages/admin/AdminDashboardPage';
+import AdminSectionPage from './pages/admin/AdminSectionPage';
+import ProtectedRoute from './components/ProtectedRoute';
 
 const adminSections = {
   products: {
@@ -41,7 +42,8 @@ const adminSections = {
   },
   users: {
     title: 'Kullanıcılar',
-    description: 'Müşteri hesaplarını, rollerini ve son aktivitelerini takip edin.',
+    description:
+      'Müşteri hesaplarını, rollerini ve son aktivitelerini takip edin.',
     columns: ['Kullanıcı', 'E-posta', 'Rol', 'Durum'],
     rows: [
       ['Ayşe Demir', 'ayse@example.com', 'Müşteri', 'Aktif'],
@@ -52,7 +54,8 @@ const adminSections = {
   },
   orders: {
     title: 'Siparişler',
-    description: 'Yeni siparişleri, kargo süreçlerini ve ödeme durumlarını izleyin.',
+    description:
+      'Yeni siparişleri, kargo süreçlerini ve ödeme durumlarını izleyin.',
     columns: ['Sipariş', 'Müşteri', 'Tutar', 'Durum'],
     rows: [
       ['#SP-1028', 'Ayşe Demir', '₺1.249', 'Hazırlanıyor'],
@@ -65,47 +68,51 @@ const adminSections = {
 
 const router = createBrowserRouter([
   {
-    path: "/",
+    path: '/',
     element: <MainLayout />,
     errorElement: <NotFoundPage />,
     children: [
       {
-        path: "/",
+        path: '/',
         element: <HomePage />,
       },
       {
-        path: "/products",
-        element: <ProductsPage />
+        path: '/products',
+        element: <ProductsPage />,
       },
       {
-        path: "/login",
-        element: <LoginPage />
+        path: '/login',
+        element: <LoginPage />,
       },
       {
-        path: "/register",
-        element: <RegisterPage />
+        path: '/register',
+        element: <RegisterPage />,
       },
       {
-        path: "/cart",
-        element: <CartPage />
+        path: '/cart',
+        element: <CartPage />,
       },
       {
-        path: "/about",
-        element: <AboutPage />
+        path: '/about',
+        element: <AboutPage />,
       },
       {
-        path: "/contact",
-        element: <ContactPage />
+        path: '/contact',
+        element: <ContactPage />,
       },
       {
-        path: "/product-detail/:urunId",
-        element: <ProductDetailPage />
-      }
-    ]
+        path: '/product-detail/:urunId',
+        element: <ProductDetailPage />,
+      },
+    ],
   },
   {
-    path: "/admin",
-    element: <AdminLayout />,
+    path: '/admin',
+    element: (
+      <ProtectedRoute roles={['admin', 'moderator']}>
+        <AdminLayout />
+      </ProtectedRoute>
+    ),
     errorElement: <NotFoundPage />,
     children: [
       {
@@ -113,24 +120,23 @@ const router = createBrowserRouter([
         element: <AdminDashboardPage />,
       },
       {
-        path: "products",
+        path: 'products',
         element: <AdminSectionPage {...adminSections.products} />,
       },
       {
-        path: "categories",
+        path: 'categories',
         element: <AdminSectionPage {...adminSections.categories} />,
       },
       {
-        path: "users",
+        path: 'users',
         element: <AdminSectionPage {...adminSections.users} />,
       },
       {
-        path: "orders",
+        path: 'orders',
         element: <AdminSectionPage {...adminSections.orders} />,
       },
     ],
-  }
-
+  },
 ]);
 
 function App() {
