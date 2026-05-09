@@ -7,6 +7,7 @@ const navClassName =
 
 function Header() {
   const { cartItems } = useSelector((state) => state.cart);
+  const authState = useSelector((state) => state.auth);
 
   /*  const cartItemCount = 2; */
 
@@ -84,18 +85,24 @@ function Header() {
               {cartItems.length}
             </span>
           </Link>
-          <Link
-            to="/login"
-            className="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
-          >
-            Giriş
-          </Link>
-          <Link
-            to="/register"
-            className="rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
-          >
-            Kayıt ol
-          </Link>
+          {authState.isAuthenticated ? (
+            'Emin Başbayan'
+          ) : (
+            <>
+              <Link
+                to="/login"
+                className="rounded-lg px-3 py-2 text-sm font-medium text-slate-700 transition hover:bg-slate-100 hover:text-slate-900"
+              >
+                Giriş
+              </Link>
+              <Link
+                to="/register"
+                className="rounded-lg bg-slate-900 px-3 py-2 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
+              >
+                Kayıt ol
+              </Link>
+            </>
+          )}
         </div>
       </div>
     </header>

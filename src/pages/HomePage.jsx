@@ -1,14 +1,16 @@
 import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
-import { ArrowRight, CheckCircle2, Package, ShieldCheck, ShoppingCart, Sparkles } from 'lucide-react';
+import {
+  ArrowRight,
+  CheckCircle2,
+  Package,
+  ShieldCheck,
+  ShoppingCart,
+  Sparkles,
+} from 'lucide-react';
 import Counter from '../components/Counter';
 
-const categoryLinks = [
-  'Elektronik',
-  'Aksesuar',
-  'Erkek Giyim',
-  'Kadın Giyim',
-];
+const categoryLinks = ['Elektronik', 'Aksesuar', 'Erkek Giyim', 'Kadın Giyim'];
 
 const serviceHighlights = [
   {
@@ -38,9 +40,20 @@ const HomePage = () => {
       .catch((err) => console.log(err));
   }, []);
 
+  function handleLogin() {
+    const credentials = { username: 'mor_2314', password: '83r5^_' };
+    fetch('https://fakestoreapi.com/auth/login', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(credentials),
+    })
+      .then((response) => response.json())
+      .then((data) => console.log(data));
+  }
+
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <Counter />
+      <button onClick={handleLogin}>Login</button>
       <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <span className="inline-flex w-fit items-center gap-2 rounded-full bg-fuchsia-100 px-3 py-1 text-xs font-semibold text-fuchsia-700">
@@ -96,7 +109,9 @@ const HomePage = () => {
                 <span className="flex h-9 w-9 items-center justify-center rounded-lg bg-slate-100 text-fuchsia-700">
                   <CheckCircle2 className="h-5 w-5" />
                 </span>
-                <span className="text-sm font-medium text-slate-700">{step}</span>
+                <span className="text-sm font-medium text-slate-700">
+                  {step}
+                </span>
               </div>
             ))}
           </div>
@@ -122,12 +137,17 @@ const HomePage = () => {
           </h2>
           <div className="mt-5 space-y-4">
             {serviceHighlights.map(({ title, description, icon }) => (
-              <article key={title} className="flex gap-4 rounded-xl bg-slate-50 p-4">
+              <article
+                key={title}
+                className="flex gap-4 rounded-xl bg-slate-50 p-4"
+              >
                 <span className="flex h-10 w-10 shrink-0 items-center justify-center rounded-lg bg-white text-fuchsia-700 shadow-sm">
                   {icon}
                 </span>
                 <div>
-                  <h3 className="text-sm font-semibold text-slate-900">{title}</h3>
+                  <h3 className="text-sm font-semibold text-slate-900">
+                    {title}
+                  </h3>
                   <p className="mt-1 text-sm leading-6 text-slate-600">
                     {description}
                   </p>
@@ -156,33 +176,34 @@ const HomePage = () => {
           </div>
 
           <div className="mt-5 grid gap-4 sm:grid-cols-3">
-            {(featuredProducts.length ? featuredProducts : Array.from({ length: 3 })).map(
-              (product, index) => (
-                <Link
-                  key={product?.id || index}
-                  to={product?.id ? `/product-detail/${product.id}` : '/products'}
-                  className="rounded-xl border border-slate-200 bg-slate-50 p-4 transition hover:border-fuchsia-200 hover:bg-white hover:shadow-md"
-                >
-                  <div className="flex h-32 items-center justify-center rounded-lg bg-white p-3">
-                    {product ? (
-                      <img
-                        src={product.image}
-                        alt={product.title}
-                        className="h-full w-full object-contain"
-                      />
-                    ) : (
-                      <div className="h-full w-full animate-pulse rounded-lg bg-slate-200" />
-                    )}
-                  </div>
-                  <h3 className="mt-3 line-clamp-2 min-h-10 text-sm font-semibold text-slate-900">
-                    {product?.title || 'Ürün yükleniyor'}
-                  </h3>
-                  <p className="mt-2 text-sm font-bold text-fuchsia-700">
-                    {product ? `${product.price} TL` : '...'}
-                  </p>
-                </Link>
-              ),
-            )}
+            {(featuredProducts.length
+              ? featuredProducts
+              : Array.from({ length: 3 })
+            ).map((product, index) => (
+              <Link
+                key={product?.id || index}
+                to={product?.id ? `/product-detail/${product.id}` : '/products'}
+                className="rounded-xl border border-slate-200 bg-slate-50 p-4 transition hover:border-fuchsia-200 hover:bg-white hover:shadow-md"
+              >
+                <div className="flex h-32 items-center justify-center rounded-lg bg-white p-3">
+                  {product ? (
+                    <img
+                      src={product.image}
+                      alt={product.title}
+                      className="h-full w-full object-contain"
+                    />
+                  ) : (
+                    <div className="h-full w-full animate-pulse rounded-lg bg-slate-200" />
+                  )}
+                </div>
+                <h3 className="mt-3 line-clamp-2 min-h-10 text-sm font-semibold text-slate-900">
+                  {product?.title || 'Ürün yükleniyor'}
+                </h3>
+                <p className="mt-2 text-sm font-bold text-fuchsia-700">
+                  {product ? `${product.price} TL` : '...'}
+                </p>
+              </Link>
+            ))}
           </div>
         </div>
       </div>

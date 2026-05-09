@@ -1,25 +1,41 @@
-import { useForm } from "react-hook-form";
+import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import * as yup from "yup";
+import { loginUser } from '../redux/authSlice';
+import * as yup from 'yup';
+import { useDispatch, useSelector } from 'react-redux';
 
 const schema = yup.object({
-  email: yup.string().email("Geçerli bir e-posta adresi giriniz.").required("E-posta adresi zorunludur."),
-  password: yup.string().min(6, "Şifre en az 6 karakter olmalıdır.").max(12, "Şifre en fazla 12 karakter olmalıdır.").required("Şifre zorunludur.")
-})
-
+  username: yup
+    .string()
+    .min(3, 'Şifre en az 3 karakter olmalıdır.')
+    .required('Username adresi zorunludur.'),
+  password: yup
+    .string()
+    .min(6, 'Şifre en az 6 karakter olmalıdır.')
+    .max(12, 'Şifre en fazla 12 karakter olmalıdır.')
+    .required('Şifre zorunludur.'),
+});
 
 /**
  * Kurumsal giriş sayfası (yalnızca arayüz).
  */
 function LoginPage() {
-  const { register, handleSubmit, formState: { errors } } = useForm({
-    resolver: yupResolver(schema)
-  })
+  const {
+    register,
+    handleSubmit,
+    formState: { errors },
+  } = useForm({
+    resolver: yupResolver(schema),
+  });
+  const authState = useSelector((state) => state.auth);
+
+  console.log(authState);
+
+  const dispatch = useDispatch();
 
   function onSubmit(data) {
-    console.log(data);
+    dispatch(loginUser(data));
   }
-
 
   return (
     <div className="min-h-screen bg-slate-100 flex flex-col items-center justify-center px-4 py-10">
@@ -37,21 +53,26 @@ function LoginPage() {
           <form className="space-y-5" onSubmit={handleSubmit(onSubmit)}>
             <div>
               <label
-                htmlFor="login-email"
+                htmlFor="login-username"
                 className="block text-sm font-medium text-slate-700"
               >
                 Kurumsal e-posta
               </label>
               <input
-                id="login-email"
-                name="email"
-                type="email"
-                autoComplete="email"
+                id="login-username"
+                name="username"
+                type="text"
                 placeholder="ornek@sirket.com"
-                {...register('email', { required: true })}
-                className={"mt-1.5 w-full rounded-lg border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-900/10"}
+                {...register('username', { required: true })}
+                className={
+                  'mt-1.5 w-full rounded-lg border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-900/10'
+                }
               />
-              {errors.email && <p className="text-red-500 text-sm">{errors.email.message}</p>}
+              {errors.username && (
+                <p className="text-red-500 text-sm">
+                  {errors.username.message}
+                </p>
+              )}
             </div>
 
             <div>
@@ -76,16 +97,22 @@ function LoginPage() {
                 autoComplete="current-password"
                 placeholder="••••••••"
                 {...register('password')}
-                className={"mt-1.5 w-full rounded-lg border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-900/10"}
+                className={
+                  'mt-1.5 w-full rounded-lg border border-slate-200 bg-slate-50/80 px-3 py-2.5 text-sm text-slate-900 placeholder:text-slate-400 outline-none transition focus:border-slate-400 focus:bg-white focus:ring-2 focus:ring-slate-900/10'
+                }
               />
-              {errors.password && <p className="text-red-500 text-sm">{errors.password.message}</p>}
+              {errors.password && (
+                <p className="text-red-500 text-sm">
+                  {errors.password.message}
+                </p>
+              )}
             </div>
 
             <button
               type="submit"
               className="w-full rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
             >
-              Giriş yap
+              {authState.loading ? 'Giriş Yapılıyor' : 'Giriş yap'}
             </button>
           </form>
         </div>
