@@ -1,6 +1,7 @@
 import { Link, NavLink } from 'react-router';
 import { CartContext } from '../../context/CartContext';
-import { useSelector } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
+import { logout } from '../../redux/authSlice';
 
 const navClassName =
   'rounded-md px-3 py-2 text-sm font-medium text-slate-600 transition-colors hover:bg-slate-100 hover:text-slate-900';
@@ -8,6 +9,7 @@ const navClassName =
 function Header() {
   const { cartItems } = useSelector((state) => state.cart);
   const authState = useSelector((state) => state.auth);
+  const dispatch = useDispatch();
 
   /*  const cartItemCount = 2; */
 
@@ -65,14 +67,16 @@ function Header() {
           >
             İletişim
           </NavLink>
-          <NavLink
-            to="/admin"
-            className={({ isActive }) =>
-              isActive ? `${navClassName} text-fuchsia-700!` : navClassName
-            }
-          >
-            Admin
-          </NavLink>
+          {authState.isAuthenticated && (
+            <NavLink
+              to="/admin"
+              className={({ isActive }) =>
+                isActive ? `${navClassName} text-fuchsia-700!` : navClassName
+              }
+            >
+              Admin
+            </NavLink>
+          )}
         </nav>
 
         <div className="flex shrink-0 items-center gap-2">
@@ -86,7 +90,15 @@ function Header() {
             </span>
           </Link>
           {authState.isAuthenticated ? (
-            'Emin Başbayan'
+            <>
+              <strong> Emin Başbayan</strong>
+              <span
+                className="text-xl text-red-600 hover:cursor-pointer"
+                onClick={() => dispatch(logout())}
+              >
+                Çıkış
+              </span>
+            </>
           ) : (
             <>
               <Link
