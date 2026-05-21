@@ -1,8 +1,9 @@
 import { useForm } from 'react-hook-form';
 import { yupResolver } from '@hookform/resolvers/yup';
-import { loginUser } from '../redux/authSlice';
+import { setAuthError, setCredentials } from '../redux/authSlice';
 import * as yup from 'yup';
 import { useDispatch, useSelector } from 'react-redux';
+import { useLoginMutation } from '../redux/apiSlice';
 
 const schema = yup.object({
   username: yup
@@ -28,13 +29,16 @@ function LoginPage() {
     resolver: yupResolver(schema),
   });
   const authState = useSelector((state) => state.auth);
-
-  console.log(authState);
-
   const dispatch = useDispatch();
+  const [login, { isLoading }] = useLoginMutation();
 
-  function onSubmit(data) {
-    dispatch(loginUser(data));
+  async function onSubmit(data) {
+    try {
+      const response = await login(data).unwrap();
+      dispatch(setCredentials(response));
+    } catch {
+      dispatch(setAuthError('Giriş işlemi sırasında hata oluştu'));
+    }
   }
 
   return (
@@ -110,10 +114,16 @@ function LoginPage() {
 
             <button
               type="submit"
+              disabled={isLoading}
               className="w-full rounded-lg bg-slate-900 px-4 py-2.5 text-sm font-semibold text-white shadow-sm transition hover:bg-slate-800 focus:outline-none focus:ring-2 focus:ring-slate-900 focus:ring-offset-2"
             >
-              {authState.loading ? 'Giriş Yapılıyor' : 'Giriş yap'}
+              {isLoading ? 'Giriş Yapılıyor' : 'Giriş yap'}
             </button>
+            {authState.error && (
+              <p className="text-center text-sm text-red-500">
+                {authState.error}
+              </p>
+            )}
           </form>
         </div>
 

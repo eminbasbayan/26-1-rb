@@ -4,19 +4,15 @@ import ProductCard from './ProductCard.jsx';
 import Modal from '../UI/Modal.jsx';
 import './Products.css';
 import { initialState, reducerFunction } from './productReducer.js';
-import { getProducts } from '../../services/productService.js';
+import { useGetProductsQuery } from '../../redux/apiSlice.js';
 
 function Products() {
   const [state, dispatch] = useReducer(reducerFunction, initialState);
+  const { data: products = [], isLoading, isError } = useGetProductsQuery();
 
   useEffect(() => {
-    getProducts()
-      .then((response) =>
-        dispatch({ type: 'GET_PRODUCTS', products: response.data }),
-      )
-      .catch((err) => console.log(err))
-      .finally(() => dispatch({ type: 'CLOSE_LOADING' }));
-  }, []);
+    dispatch({ type: 'GET_PRODUCTS', products });
+  }, [products]);
 
   return (
     <div className="products">
@@ -27,7 +23,8 @@ function Products() {
         setIsShowModal={() => dispatch({ type: 'OPEN_MODAL' })}
       />
       <div className="products-wrapper">
-        {state.isLoading && <b>Ürünler Yükleniyor!</b>}
+        {isLoading && <b>Ürünler Yükleniyor!</b>}
+        {isError && <b>Ürünler yüklenirken hata oluştu!</b>}
         {state.products.map((product) => {
           return (
             <ProductCard

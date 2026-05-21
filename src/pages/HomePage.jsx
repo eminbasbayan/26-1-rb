@@ -1,4 +1,3 @@
-import { useEffect, useState } from 'react';
 import { Link } from 'react-router';
 import {
   ArrowRight,
@@ -8,9 +7,10 @@ import {
   ShoppingCart,
   Sparkles,
 } from 'lucide-react';
-import Counter from '../components/Counter';
-import { login } from '../services/authService';
-import { getFeaturedProducts } from '../services/productService';
+import {
+  useGetFeaturedProductsQuery,
+  useLoginMutation,
+} from '../redux/apiSlice';
 
 const categoryLinks = ['Elektronik', 'Aksesuar', 'Erkek Giyim', 'Kadın Giyim'];
 
@@ -33,16 +33,14 @@ const serviceHighlights = [
 ];
 
 const HomePage = () => {
-  const [featuredProducts, setFeaturedProducts] = useState([]);
-
-  useEffect(() => {
-      getFeaturedProducts().then((response) => setFeaturedProducts(response.data))
-      .catch((err) => console.log(err));
-  }, []);
+  const { data: featuredProducts = [] } = useGetFeaturedProductsQuery();
+  const [login] = useLoginMutation();
 
   function handleLogin() {
     const credentials = { username: 'mor_2314', password: '83r5^_' };
-    login(credentials).then((response) => console.log(response.data));
+    login(credentials)
+      .unwrap()
+      .then((data) => console.log(data));
   }
 
   return (

@@ -1,27 +1,26 @@
-import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import ProductDetailSkeleton from '../components/ProductDetailSkeleton';
-import { getProductById } from '../services/productService';
+import { useGetProductByIdQuery } from '../redux/apiSlice';
 
 const ProductDetailPage = () => {
-  const [product, setProduct] = useState(null);
   const params = useParams();
+  const {
+    data: product,
+    isLoading,
+    isError,
+  } = useGetProductByIdQuery(params.urunId);
 
-  useEffect(() => {
-    async function fetchProductDetail() {
-      getProductById(params.urunId).then((response) => {
-          setTimeout(() => {
-            setProduct(response.data);
-          }, 3000);
-        })
-        .catch((err) => console.log(err))
-        .finally(() => console.log('İşlem Tamamlandı'));
-    }
+  if (isLoading) return <ProductDetailSkeleton />;
 
-    fetchProductDetail();
-  }, [params.urunId]);
-
-  if (!product) return <ProductDetailSkeleton />;
+  if (isError || !product) {
+    return (
+      <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
+        <div className="rounded-2xl border border-red-100 bg-red-50 p-6 text-sm font-medium text-red-700">
+          Ürün detayı yüklenirken hata oluştu.
+        </div>
+      </section>
+    );
+  }
 
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
