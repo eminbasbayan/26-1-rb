@@ -9,6 +9,8 @@ import {
   Sparkles,
 } from 'lucide-react';
 import Counter from '../components/Counter';
+import { login } from '../services/authService';
+import { getFeaturedProducts } from '../services/productService';
 
 const categoryLinks = ['Elektronik', 'Aksesuar', 'Erkek Giyim', 'Kadın Giyim'];
 
@@ -34,21 +36,13 @@ const HomePage = () => {
   const [featuredProducts, setFeaturedProducts] = useState([]);
 
   useEffect(() => {
-    fetch('https://fakestoreapi.com/products?limit=3')
-      .then((res) => res.json())
-      .then((data) => setFeaturedProducts(data))
+      getFeaturedProducts().then((response) => setFeaturedProducts(response.data))
       .catch((err) => console.log(err));
   }, []);
 
   function handleLogin() {
     const credentials = { username: 'mor_2314', password: '83r5^_' };
-    fetch('https://fakestoreapi.com/auth/login', {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(credentials),
-    })
-      .then((response) => response.json())
-      .then((data) => console.log(data));
+    login(credentials).then((response) => console.log(response.data));
   }
 
   return (

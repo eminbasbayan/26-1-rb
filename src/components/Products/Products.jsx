@@ -4,14 +4,16 @@ import ProductCard from './ProductCard.jsx';
 import Modal from '../UI/Modal.jsx';
 import './Products.css';
 import { initialState, reducerFunction } from './productReducer.js';
+import { getProducts } from '../../services/productService.js';
 
 function Products() {
   const [state, dispatch] = useReducer(reducerFunction, initialState);
 
   useEffect(() => {
-    fetch('https://fakestoreapi.com/products')
-      .then((res) => res.json())
-      .then((data) => dispatch({ type: 'GET_PRODUCTS', products: data }))
+    getProducts()
+      .then((response) =>
+        dispatch({ type: 'GET_PRODUCTS', products: response.data }),
+      )
       .catch((err) => console.log(err))
       .finally(() => dispatch({ type: 'CLOSE_LOADING' }));
   }, []);

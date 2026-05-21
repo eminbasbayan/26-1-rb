@@ -1,4 +1,5 @@
 import { createAsyncThunk, createSlice } from '@reduxjs/toolkit';
+import { login } from '../services/authService';
 
 const tokenFromStorage = localStorage.getItem('token');
 
@@ -13,23 +14,13 @@ export const loginUser = createAsyncThunk(
   'auth/loginUser',
   async (formData, { rejectWithValue }) => {
     try {
-      const response = await fetch('https://fakestoreapi.com/auth/login', {
-        method: 'POST',
-        headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({
-          username: formData.username,
-          password: formData.password,
-        }),
+      const response = await login({
+        username: formData.username,
+        password: formData.password,
       });
 
-      const data = await response.json();
-
-      if (!response.ok) {
-        return rejectWithValue('Giriş işlemi sırasında hata oluştu');
-      }
-
-      return data;
-    } catch (error) {
+      return response.data;
+    } catch {
       return rejectWithValue('Giriş işlemi sırasında hata oluştu');
     }
   },

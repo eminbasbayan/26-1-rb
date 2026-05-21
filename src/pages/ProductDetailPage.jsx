@@ -1,6 +1,7 @@
 import { useEffect, useState } from 'react';
 import { Link, useParams } from 'react-router';
 import ProductDetailSkeleton from '../components/ProductDetailSkeleton';
+import { getProductById } from '../services/productService';
 
 const ProductDetailPage = () => {
   const [product, setProduct] = useState(null);
@@ -8,11 +9,9 @@ const ProductDetailPage = () => {
 
   useEffect(() => {
     async function fetchProductDetail() {
-      fetch(`https://fakestoreapi.com/products/${params.urunId}`)
-        .then((res) => res.json())
-        .then((data) => {
+      getProductById(params.urunId).then((response) => {
           setTimeout(() => {
-            setProduct(data);
+            setProduct(response.data);
           }, 3000);
         })
         .catch((err) => console.log(err))
