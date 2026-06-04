@@ -1,21 +1,26 @@
+import { lazy, Suspense } from 'react';
 import { createBrowserRouter } from 'react-router';
 import { RouterProvider } from 'react-router/dom';
+import { ToastContainer } from 'react-toastify';
+
+import MainLayout from './layouts/MainLayout';
 import HomePage from './pages/HomePage';
+import ProtectedRoute from './components/ProtectedRoute';
+
 import LoginPage from './pages/LoginPage';
 import ProductsPage from './pages/ProductsPage';
 import RegisterPage from './pages/RegisterPage';
 import NotFoundPage from './pages/NotFoundPage';
-import MainLayout from './layouts/MainLayout';
 import CartPage from './pages/CartPage';
 import AboutPage from './pages/AboutPage';
 import ContactPage from './pages/ContactPage';
-
-import { ToastContainer } from 'react-toastify';
 import ProductDetailPage from './pages/ProductDetailPage';
-import AdminLayout from './layouts/AdminLayout';
-import AdminDashboardPage from './pages/admin/AdminDashboardPage';
-import AdminSectionPage from './pages/admin/AdminSectionPage';
-import ProtectedRoute from './components/ProtectedRoute';
+
+const AdminLayout = lazy(() => import('./layouts/AdminLayout'));
+const AdminDashboardPage = lazy(
+  () => import('./pages/admin/AdminDashboardPage'),
+);
+const AdminSectionPage = lazy(() => import('./pages/admin/AdminSectionPage'));
 
 const adminSections = {
   products: {
@@ -142,7 +147,9 @@ const router = createBrowserRouter([
 function App() {
   return (
     <>
-      <RouterProvider router={router} />
+      <Suspense fallback={<span>Sayfa Yükleniyor...</span>}>
+        <RouterProvider router={router} />
+      </Suspense>
       <ToastContainer />
     </>
   );
