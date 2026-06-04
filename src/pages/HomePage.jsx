@@ -1,3 +1,4 @@
+import { useCallback, useState } from 'react';
 import { Link } from 'react-router';
 import {
   ArrowRight,
@@ -15,7 +16,6 @@ import TextInputWithFocusButton from '../components/TextInputWithFocusButton';
 import Counter from '../components/Counter';
 import MyButton from '../components/PerformanceOptimization/MyButton';
 import MyElement from '../components/PerformanceOptimization/MyElement';
-import { useState } from 'react';
 
 const categoryLinks = ['Elektronik', 'Aksesuar', 'Erkek Giyim', 'Kadın Giyim'];
 
@@ -41,6 +41,8 @@ const HomePage = () => {
   const { data: featuredProducts = [] } = useGetFeaturedProductsQuery();
   const [login] = useLoginMutation();
 
+  console.log('HomePage re-render oldu!');
+
   function handleLogin() {
     const credentials = { username: 'mor_2314', password: '83r5^_' };
     login(credentials)
@@ -50,9 +52,9 @@ const HomePage = () => {
 
   const [toggleParagraph, setToggleParagraph] = useState(false);
 
-  function handleToggleParagraph() {
+  const handleToggleParagraph = useCallback(() => {
     setToggleParagraph((prev) => !prev);
-  }
+  }, []);
 
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
