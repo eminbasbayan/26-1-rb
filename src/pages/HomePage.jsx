@@ -11,6 +11,8 @@ import {
   useGetFeaturedProductsQuery,
   useLoginMutation,
 } from '../redux/apiSlice';
+import TextInputWithFocusButton from '../components/TextInputWithFocusButton';
+import Counter from '../components/Counter';
 
 const categoryLinks = ['Elektronik', 'Aksesuar', 'Erkek Giyim', 'Kadın Giyim'];
 
@@ -45,7 +47,11 @@ const HomePage = () => {
 
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <button onClick={handleLogin}>Login</button>
+  
+      <Counter />
+   
+      <TextInputWithFocusButton />
+      {/* <button onClick={handleLogin}>Login</button> */}
       <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
           <span className="inline-flex w-fit items-center gap-2 rounded-full bg-fuchsia-100 px-3 py-1 text-xs font-semibold text-fuchsia-700">
