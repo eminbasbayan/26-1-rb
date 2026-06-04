@@ -1,4 +1,4 @@
-import { useCallback, useState } from 'react';
+import { useCallback, useMemo, useState } from 'react';
 import { Link } from 'react-router';
 import {
   ArrowRight,
@@ -16,6 +16,7 @@ import TextInputWithFocusButton from '../components/TextInputWithFocusButton';
 import Counter from '../components/Counter';
 import MyButton from '../components/PerformanceOptimization/MyButton';
 import MyElement from '../components/PerformanceOptimization/MyElement';
+import MyList from '../components/PerformanceOptimization/MyList';
 
 const categoryLinks = ['Elektronik', 'Aksesuar', 'Erkek Giyim', 'Kadın Giyim'];
 
@@ -51,15 +52,24 @@ const HomePage = () => {
   }
 
   const [toggleParagraph, setToggleParagraph] = useState(false);
+  const [title, setTitle] = useState('Title State');
 
   const handleToggleParagraph = useCallback(() => {
     setToggleParagraph((prev) => !prev);
   }, []);
 
+  const handleTitleChange = useCallback(() => {
+    setTitle('Title Değişti!');
+  }, []);
+
+  const listItems = useMemo(() => [1, 2, 3, 4, 5], []);
+
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
       <MyElement show={false} />
-      <MyButton onClick={handleToggleParagraph}>Tıkla</MyButton>
+      <MyList items={listItems} />
+      <p>{title}</p>
+      <MyButton onClick={handleTitleChange}>Tıkla</MyButton>
 
       {/* <button onClick={handleLogin}>Login</button> */}
       <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
