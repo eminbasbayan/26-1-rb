@@ -13,6 +13,9 @@ import {
 } from '../redux/apiSlice';
 import TextInputWithFocusButton from '../components/TextInputWithFocusButton';
 import Counter from '../components/Counter';
+import MyButton from '../components/PerformanceOptimization/MyButton';
+import MyElement from '../components/PerformanceOptimization/MyElement';
+import { useState } from 'react';
 
 const categoryLinks = ['Elektronik', 'Aksesuar', 'Erkek Giyim', 'Kadın Giyim'];
 
@@ -45,12 +48,17 @@ const HomePage = () => {
       .then((data) => console.log(data));
   }
 
+  const [toggleParagraph, setToggleParagraph] = useState(false);
+
+  function handleToggleParagraph() {
+    setToggleParagraph((prev) => !prev);
+  }
+
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-  
-      <Counter />
-   
-      <TextInputWithFocusButton />
+      <MyElement show={false} />
+      <MyButton onClick={handleToggleParagraph}>Tıkla</MyButton>
+
       {/* <button onClick={handleLogin}>Login</button> */}
       <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
         <div className="rounded-2xl border border-slate-200 bg-white p-6 shadow-sm sm:p-8">
