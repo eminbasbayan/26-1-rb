@@ -66,10 +66,10 @@ const HomePage = () => {
 
   return (
     <section className="mx-auto w-full max-w-7xl px-4 py-8 sm:px-6 lg:px-8">
-      <MyElement show={false} />
+    {/*   <MyElement show={false} />
       <MyList items={listItems} />
       <p>{title}</p>
-      <MyButton onClick={handleTitleChange}>Tıkla</MyButton>
+      <MyButton onClick={handleTitleChange}>Tıkla</MyButton> */}
 
       {/* <button onClick={handleLogin}>Login</button> */}
       <div className="grid gap-6 lg:grid-cols-[1.15fr_0.85fr]">
